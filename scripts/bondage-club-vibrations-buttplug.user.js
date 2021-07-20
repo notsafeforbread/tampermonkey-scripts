@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Bondage Club Vibrations to Buttplug.io
 // @namespace    https://github.com/notsafeforbread/tampermonkey-scripts
-// @version      0.3
+// @version      0.4
 // @description  Uses buttplug-js to vibrate local sex toys when your character is getting vibed
 // @author       notsafeforbread
 // @downloadurl  https://github.com/notsafeforbread/tampermonkey-scripts/raw/master/scripts/bondage-club-vibrations-buttplug.user.js
 // @updateurl    https://github.com/notsafeforbread/tampermonkey-scripts/raw/master/scripts/bondage-club-vibrations-buttplug.user.js
-// @include      https://www.bondageprojects.com/college/R69/BondageClub/
-// @include      https://www.bondageprojects.elementfx.com/R69/BondageClub/
+// @include      https://www.bondageprojects.com/college/R*/BondageClub/
+// @include      https://www.bondageprojects.elementfx.com/R*/BondageClub/
 // @require      https://cdn.jsdelivr.net/npm/buttplug@0.13.2/dist/web/buttplug.min.js
 // @require      https://raw.githubusercontent.com/notsafeforbread/buttplug-tampermonkey/master/utils/buttplug-tampermonkey-ui.js
 // @run-at       document-end
@@ -33,7 +33,12 @@ function isVibrator(Item) {
 
 function findHighestVibratorOnPlayer() {
     'use strict';
-    // Check if we're logged in? CurrentScreen != "Login"
+    // Don't search for vibrators if we aren't logged in or if nothing is vibrating.
+    if(CurrentScreen == 'undefined' || CurrentScreen == "Login" || !Player.Effect.includes("Vibrating")) {
+        return -1;
+    }
+
+    // Consider looking through Character.js for possibly more efficient ways of searching
     var strongestVibe = -1;
     for(let A = 0; A < Player.Appearance.length; A++) {
         var Item = Player.Appearance[A];
@@ -90,10 +95,13 @@ function checkVibrations() {
 async function initScript() {
     // Used in buttplug > 1.0, but that seems to have issues with buttplug-tampermonkey
     // await Buttplug.buttplugInit();
+
     // Every second, check for active vibrators on the player
+    // Lower this value if you want it to check more often. Setting it too low may cause high CPU usage.
+    var checkIntervalMilliseconds = 1000;
     window.setInterval(function(){
         checkVibrations();
-    }, 1000);
+    }, checkIntervalMilliseconds);
     console.log('Bondage Club Vibrations to Buttplug.io initialized.');
 }
 
