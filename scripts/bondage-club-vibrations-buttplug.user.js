@@ -1,15 +1,15 @@
 // ==UserScript==
 // @name         Bondage Club Vibrations to Buttplug.io
 // @namespace    https://github.com/notsafeforbread/tampermonkey-scripts
-// @version      0.4
+// @version      0.5
 // @description  Uses buttplug-js to vibrate local sex toys when your character is getting vibed
 // @author       notsafeforbread
 // @downloadurl  https://github.com/notsafeforbread/tampermonkey-scripts/raw/master/scripts/bondage-club-vibrations-buttplug.user.js
 // @updateurl    https://github.com/notsafeforbread/tampermonkey-scripts/raw/master/scripts/bondage-club-vibrations-buttplug.user.js
-// @include      https://www.bondageprojects.com/college/R*/BondageClub/
 // @include      https://www.bondageprojects.elementfx.com/R*/BondageClub/
+// @include      https://www.bondage-europe.com/R*/BondageClub/
 // @require      https://cdn.jsdelivr.net/npm/buttplug@0.13.2/dist/web/buttplug.min.js
-// @require      https://raw.githubusercontent.com/notsafeforbread/buttplug-tampermonkey/master/utils/buttplug-tampermonkey-ui.js
+// @require      https://raw.githubusercontent.com/buttplugio/buttplug-tampermonkey/master/utils/buttplug-tampermonkey-ui.js
 // @run-at       document-end
 // ==/UserScript==
 // Note: Bondage Club beta/cheat servers not included yet.
@@ -103,6 +103,7 @@ async function initScript() {
         checkVibrations();
     }, checkIntervalMilliseconds);
     console.log('Bondage Club Vibrations to Buttplug.io initialized.');
+
 }
 
 initScript();
